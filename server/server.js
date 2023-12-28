@@ -9,8 +9,11 @@ const port = process.env.PORT || 5001;
 app.use(express.json())
 app.use(cors());
 
-//Routes
+//Registration and Login Route handling authentication and authorization
 app.use('/auth', require('./routes/jwtAuthRoutes'))
+
+//Dashboard route
+app.use('/dashboard', require('./routes/dashboardRoute'))
 
 app.listen(port, ()=>{
     console.log(`Server listening at http://localhost:${port}`);

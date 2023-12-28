@@ -1,8 +1,8 @@
-const express = require('express');
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwtGenerator = require('../utils/jwtGenerator');
 
+const authorization = require('../middleware/authorization')
 /**Registration Proces
 1. Destructure the name, email, password from the req.body
 2. Check if user already exists
@@ -63,9 +63,20 @@ const loginRoute = async(req,res)=>{
         res.status(500).json('Server Error');
     }
 
-}
+};
+
+//Function of the Verification route that returns a true value if token in the req.header is valid
+const verifyRoute = async(req,res)=>{
+    try {
+        res.json(true);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json('Server Error')
+    }
+};
 
 module.exports = {
     registerRoute,
-    loginRoute
-}
+    loginRoute,
+    verifyRoute
+};
